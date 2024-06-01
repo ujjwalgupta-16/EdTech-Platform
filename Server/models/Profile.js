@@ -20,8 +20,7 @@ const profileSchema = new mongoose.Schema({
     profession: {
         type: Number,
         trim: true
-    },
-
+    }
 })
 
 module.exports = mongoose.model("Profile", profileSchema)
