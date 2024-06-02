@@ -149,7 +149,7 @@ exports.login = async (req, res) => {
 
             const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "2h" })
             user.token = token,
-            user.password = undefined
+                user.password = undefined
 
             const options = {
                 expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),

@@ -30,16 +30,16 @@ exports.auth() = async (re, res, next) => {
     }
 }
 
-exports.isStudent = async(req, res, next) => {
+exports.isStudent = async (req, res, next) => {
     try {
-        if(req.user.accountType !== "Student") {
+        if (req.user.accountType !== "Student") {
             return res.status(401).json({
                 success: false,
                 message: "This is a protected route for Students"
             })
             next()
         }
-        
+
     } catch (error) {
         return res.status(500).json({
             success: false,
@@ -48,16 +48,16 @@ exports.isStudent = async(req, res, next) => {
     }
 }
 
-exports.isInstructor = async(req, res, next) => {
+exports.isInstructor = async (req, res, next) => {
     try {
-        if(req.user.accountType !== "Instructor") {
+        if (req.user.accountType !== "Instructor") {
             return res.status(401).json({
                 success: false,
                 message: "This is a protected route for Instructor"
             })
             next()
         }
-        
+
     } catch (error) {
         return res.status(500).json({
             success: false,
@@ -66,16 +66,16 @@ exports.isInstructor = async(req, res, next) => {
     }
 }
 
-exports.isAdmin = async(req, res, next) => {
+exports.isAdmin = async (req, res, next) => {
     try {
-        if(req.user.accountType !== "Admin") {
+        if (req.user.accountType !== "Admin") {
             return res.status(401).json({
                 success: false,
                 message: "This is a protected route for Admin"
             })
             next()
         }
-        
+
     } catch (error) {
         return res.status(500).json({
             success: false,
