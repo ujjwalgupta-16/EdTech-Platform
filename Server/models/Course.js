@@ -33,13 +33,17 @@ const courseSchema = new mongoose.Schema({
     price: {
         type: Number
     },
-    tag: {
+    category: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Tag"
+        ref: "Category"
+    },
+    tags: {
+        type: String,
+        required: true
     },
     language: {
         type: String
     }
 })
 
-module.exports = mongoose.model; ("Course", courseSchema)
+module.exports = mongoose.model("Course", courseSchema)
