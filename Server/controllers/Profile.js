@@ -8,7 +8,7 @@ exports.updateProfile = async (req, res) => {
         if (!contactNumber || !gender || !id) {
             return res.status(400).json({
                 success: false,
-                message: "All fields are required"
+                message: "All fields are required."
             })
         }
         const userDetails = await User.findById(id)
@@ -28,7 +28,7 @@ exports.updateProfile = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "Error in updating profile. Please try again"
+            message: "Error in updating profile. Please try again."
         })
     }
 }
@@ -40,7 +40,7 @@ exports.deleteAccount = async (req, res) => {
         if (!userDetails) {
             return res.status(404).json({
                 success: false,
-                message: "User not found"
+                message: "User not found."
             })
         }
 
@@ -49,7 +49,7 @@ exports.deleteAccount = async (req, res) => {
 
         return res.status(200).json({
             success: true,
-            message: "Accout deleted successfully"
+            message: "Account deleted successfully."
         })
     } catch (error) {
         return res.status(500).json({
@@ -57,4 +57,4 @@ exports.deleteAccount = async (req, res) => {
             message: "Error in deleting account. Please try again."
         })
     }
-}
+} 

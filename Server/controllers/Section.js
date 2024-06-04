@@ -1,5 +1,6 @@
 const Section = require("../models/Section")
 const Course = require("../models/Course")
+const SubSection = require("../models/SubSection")
 
 exports.createSection = async (req, res) => {
     try {
@@ -19,7 +20,7 @@ exports.createSection = async (req, res) => {
                 }
             },
             { new: true }
-        ).populate("courseContent").populate("subSection").exec()
+        ).populate({ path: "courseContent", populate: { path: "subSection" } }).exec()
 
         return res.status(200).json({
             success: true,
@@ -62,15 +63,24 @@ exports.updateSection = async (req, res) => {
 
 exports.deleteSection = async (req, res) => {
     try {
-        const { sectionId } = req.params
-        if (!sectionId) {
-            return res.status(400).json({
+        const { sectionId, courseId } = req.body
+        await Course.findByIdAndUpdate(courseId, {
+            $pull: {
+                courseContent: sectionId,
+            }
+        })
+        const section = await Section.findById(sectionId);
+        console.log(sectionId, courseId);
+        if (!section) {
+            return res.status(404).json({
                 success: false,
-                message: "Missing properties"
+                message: "Section not found",
             })
         }
 
-        await Section.findByIdAndDelete(sectionId)
+        await SubSection.deleteMany({ _id: { $in: section.subSection } });
+
+        await Section.findByIdAndDelete(sectionId);
         return res.status(200).json({
             success: true,
             message: "Section deleted successfully"
