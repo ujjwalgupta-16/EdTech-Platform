@@ -42,3 +42,21 @@ exports.showAllCategories = async (req, res) => {
     }
 }
 
+exports.categoryPageDetails = async (req, res) => {
+    try {
+        const { categoryId } = req.body
+        const selectedCategory = await Category.findById(categoryId).populate("courses").exec()
+        if (!selectedCategory) {
+            return res.status(404).json({
+                success: false,
+                message: "Data not found"
+            })
+        }
+
+        const differentCategories = await Category.find({
+            _id: { $ne: categoryId }
+        }).populate("courses").exec()
+    } catch (error) {
+
+    }
+}

@@ -37,7 +37,7 @@ exports.createSubSection = async (req, res) => {
     }
 }
 
-exports.updateSection = async (req, res) => {
+exports.updateSubSection = async (req, res) => {
     try {
         const { subSectionName, subSectionId } = req.body
         if (!subSectionName || !subSectionId) {
@@ -47,11 +47,12 @@ exports.updateSection = async (req, res) => {
             })
         }
 
-        const section = await SubSection.findByIdAndUpdate(subSectionId, { subSectionName }, { new: true })
+        const subsection = await SubSection.findByIdAndUpdate(subSectionId, { subSectionName }, { new: true })
 
         return res.status(200).json({
             success: true,
-            message: "Sub-section updated successfully"
+            message: "Sub-section updated successfully",
+            subsection
         })
     } catch (error) {
         console.log(error)

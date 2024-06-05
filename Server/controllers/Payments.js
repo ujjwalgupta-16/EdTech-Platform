@@ -25,7 +25,7 @@ exports.capturePayment = async (req, res) => {
             })
         }
 
-        const uid = new mongoose.Types.ObjectId.createFromHexString(userId)
+        const uid = mongoose.Types.ObjectId(userId)
         if (course.studentsEnrolled.includes(uid)) {
             return res.status(400).json({
                 success: false,
@@ -67,7 +67,7 @@ exports.capturePayment = async (req, res) => {
     }
 }
 
-exports.verifySignature = async (req, res) => {
+exports.verifyPayment = async (req, res) => {
     try {
         const webhookSecret = "123456789"
         const siganture = req.headers("x-razorpay-signature")
