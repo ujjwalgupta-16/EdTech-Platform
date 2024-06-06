@@ -12,11 +12,11 @@ const cors = require("cors");
 const { cloudinaryConnect } = require("./config/cloudinary");
 const fileUpload = require("express-fileupload");
 require("dotenv").config();
+
 const PORT = process.env.PORT || 8000;
 
-
 database.connect();
-//middlewares
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(
@@ -52,5 +52,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`App is running at ${PORT}`)
+    console.log(`App is running at PORT: ${PORT}`)
 })

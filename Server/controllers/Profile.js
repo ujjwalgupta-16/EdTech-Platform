@@ -70,7 +70,7 @@ exports.getAllUserDetails = async (req, res) => {
         console.log(userDetails)
         res.status(200).json({
             success: true,
-            message: "User Data fetched successfully",
+            message: "User data fetched successfully",
             data: userDetails,
         })
     } catch (error) {
