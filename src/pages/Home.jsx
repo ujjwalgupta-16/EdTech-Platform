@@ -7,6 +7,9 @@ import Banner from "../assets/Images/banner.mp4"
 import CodeBlocks from '../components/core/HomePage/CodeBlocks'
 import TimelineSection from '../components/core/HomePage/TimelineSection'
 import LearningLanguageSection from '../components/core/HomePage/LearningLanguageSection'
+import InstructorSection from "../components/core/HomePage/InstructorSection"
+import Footer from '../components/common/Footer'
+import ExploreMore from '../components/core/HomePage/ExploreMore'
 
 const Home = () => {
     return (
@@ -103,12 +106,16 @@ const Home = () => {
                         backgroundGradient={<div className="codeblock2 absolute"></div>}
                     />
                 </div>
+
+                <ExploreMore />
+
             </div>
 
             {/* Section 2 */}
             <div className=' bg-pure-greys-5 text-richblack-700'>
                 <div className='homepage_bg h-[320px]'>
                     <div className='w-11/12 max-w-maxContent flex flex-col items-center justify-between gap-8 mx-auto'>
+                        <div className="lg:h-[150px]"></div>
                         <div className='flex flex-row gap-7 text-white lg:mt-8'>
                             <CTAButton active={true} linkto={"/signup"}>
                                 <div className='flex items-center gap-2'>
@@ -141,11 +148,19 @@ const Home = () => {
                             </CTAButton>
                         </div>
                     </div>
+                    <TimelineSection />
+                    <LearningLanguageSection />
                 </div>
             </div>
+            {/* Section 3 */}
+            <div className="relative mx-auto my-20 flex w-11/12 max-w-maxContent flex-col items-center justify-between gap-8 bg-richblack-900 text-white">
 
-            <TimelineSection />
-            <LearningLanguageSection />
+                <InstructorSection />
+
+                <p className="text-center text-4xl font-semibold mt-8">Reviews from other learners</p>
+                {/* <ReviewSlider /> */}
+            </div>
+            <Footer />
         </div>
     )
 }
