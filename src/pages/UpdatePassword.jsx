@@ -2,7 +2,7 @@ import { useState } from "react"
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
 import { BiArrowBack } from "react-icons/bi"
 import { useDispatch, useSelector } from "react-redux"
-import { Link, useLocation, useNavigate } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 
 import { resetPassword } from "../services/operations/authAPI"
 
@@ -30,7 +30,7 @@ const UpdatePassword = () => {
     const handleOnSubmit = (e) => {
         e.preventDefault()
         const token = location.pathname.split("/").at(-1)
-        dispatch(resetPassword(password, confirmPassword, token))
+        dispatch(resetPassword(password, confirmPassword, token)
     }
 
     return (

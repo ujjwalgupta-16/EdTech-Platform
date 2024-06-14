@@ -148,3 +148,7 @@ body {
         transform: scaleY(-1) rotate(-135deg);
     }
 }
+
+.lable-style {
+    @apply text-[14px] text-richblack-5;
+}
