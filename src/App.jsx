@@ -11,10 +11,12 @@ import VerifyEmail from "./pages/VerifyEmail"
 import About from "./pages/About"
 import Contact from "./pages/Contact"
 import MyProfile from "./components/core/Dashboard/MyProfile"
-import Dashboard from "./pages/Dashboard";
-import PrivateRoute from "./components/core/Auth/PrivateRoute";
+import Dashboard from "./pages/Dashboard"
+import PrivateRoute from "./components/core/Auth/PrivateRoute"
 import Error from "./pages/Error"
-import Settings from "./components/core/Dashboard/Settings";
+import Settings from "./components/core/Dashboard/Settings"
+import EnrolledCourses from "./components/core/Dashboard/EnrolledCourses";
+import Cart from "./components/core/Dashboard/Cart"
 
 function App() {
   return (
@@ -67,6 +69,14 @@ function App() {
           }>
           <Route path="dashboard/my-profile" element={<MyProfile />} />
           <Route path="dashboard/Settings" element={<Settings />} />
+          {
+            user?.accountType === "Student" && (
+              <>
+                <Route path="dashboard/cart" element={<Cart />} />
+                <Route path="dashboard/enrolled-courses" element={<EnrolledCourses />} />
+              </>
+            )
+          }
         </Route>
 
       </Routes>
