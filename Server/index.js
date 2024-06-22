@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
     cors({
-        origin: "https://ed-tech-platform-frontend-three.vercel.app",
+        origin: "https://edtechplatform.vercel.app",
         credentials: true,
     })
 )
