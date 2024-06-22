@@ -40,7 +40,7 @@ function ReviewSlider() {
                         disableOnInteraction: false,
                     }}
                     modules={[FreeMode, Pagination, Autoplay]}
-                    className="w-full lg:h-[200px] sm:h-[350px]">
+                    className="w-full h-[200px]">
                     {reviews.map((review, i) => (
                         <SwiperSlide key={i} className="flex justify-center items-center">
                             <div className="flex flex-col gap-3 bg-richblack-800 p-4 text-[14px] text-richblack-25 rounded-lg h-full w-full">
