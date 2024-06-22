@@ -6,7 +6,7 @@ exports.contactUsController = async (req, res) => {
   console.log(req.body)
   try {
     const emailRes = await mailSender(
-      "ujjwalgupta1633@gmail.com",
+      email,
       "Your data sent successfully",
       contactUsEmail(email, firstname, lastname, message, phoneNo, countrycode)
     )
