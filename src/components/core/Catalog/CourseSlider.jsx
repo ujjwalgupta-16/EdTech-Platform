@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/css"
 import "swiper/css/free-mode"
 import "swiper/css/pagination"
-import { FreeMode, Pagination } from 'swiper'
+import { FreeMode, Pagination, Autoplay } from 'swiper/modules'
 import Course_Card from './Course_Card'
 
 const CourseSlider = ({ Courses }) => {
@@ -14,8 +14,12 @@ const CourseSlider = ({ Courses }) => {
                     slidesPerView={1}
                     spaceBetween={25}
                     loop={true}
-                    modules={[FreeMode, Pagination]}
-                    pagination={true}
+                    freeMode={true}
+                    autoplay={{
+                        delay: 2000,
+                        disableOnInteraction: false,
+                    }}
+                    modules={[FreeMode, Pagination, Autoplay]}
                     breakpoints={{
                         1024: {
                             slidesPerView: 3,

@@ -49,7 +49,6 @@ const SignupForm = () => {
         }
 
         dispatch(setSignupData(signupData))
-
         dispatch(sendOtp(formData.email, navigate))
 
         // Reset

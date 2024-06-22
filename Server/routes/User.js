@@ -13,7 +13,6 @@ router.post("/sendotp", sendOTP)
 
 router.post("/changepassword", auth, changePassword)
 
-
 router.post("/reset-password-token", resetPasswordToken)
 
 router.post("/reset-password", resetPassword)

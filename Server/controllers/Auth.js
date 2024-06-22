@@ -58,8 +58,8 @@ exports.sendOTP = async (req, res) => {
 
 exports.signUp = async (req, res) => {
     try {
-        const { firstName, lastName, email, password, confirmPassword, accountType, contactNumber, otp } = req.body
-        if (!firstName || !lastName || !email || !password || !confirmPassword || !contactNumber || !otp) {
+        const { firstName, lastName, email, password, confirmPassword, accountType, otp } = req.body
+        if (!firstName || !lastName || !email || !password || !confirmPassword || !otp) {
             return res.status(403).json({
                 success: false,
                 message: "All fields are required"
@@ -89,29 +89,30 @@ exports.signUp = async (req, res) => {
                 message: "OTP not found"
             })
         }
-        else if (otp !== recentOTP.otp) {
+        else if (otp !== recentOTP[0].otp) {
             return res.status(400).json({
                 success: false,
-                message: "Invalid OTP"
+                message: "Invalid OTP",
+                recentOTP
             })
         }
 
         const hashedPassword = await bcrypt.hash(password, 10)
-
+        let approved = ""
+        approved === "Instructor" ? (approved = false) : (approved = true)
         const profileDetails = await Profile.create({
             gender: null,
             dateOfBirth: null,
             about: null,
-            contactNumber: null,
-            profession: null
+            contactNumber: null
         })
 
         const user = await User.create({
-            firstName, lastName, email, contactNumber, password: hashedPassword, accountType, additionalDetails: profileDetails._id, image: `https://api.dicebear.com/5.x/initials/svg?seed=${firstName[0]}${lastName[0]}`
+            firstName, lastName, email, password: hashedPassword, accountType: accountType, approved: approved, additionalDetails: profileDetails._id, image: `https://api.dicebear.com/5.x/initials/svg?seed=${firstName[0]}${lastName[0]}`
         })
 
         return res.status(200).json({
-            success: false,
+            success: true,
             message: "User Registered Successfully",
             user
         })

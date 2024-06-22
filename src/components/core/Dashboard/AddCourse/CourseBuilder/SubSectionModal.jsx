@@ -121,7 +121,6 @@ export default function SubSectionModal({
                 <form
                     onSubmit={handleSubmit(onSubmit)}
                     className="space-y-8 px-8 py-10">
-                    {/* Lecture Video Upload */}
                     <Upload
                         name="lectureVideo"
                         label="Lecture Video"

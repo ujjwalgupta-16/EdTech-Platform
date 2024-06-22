@@ -37,8 +37,8 @@ exports.isStudent = async (req, res, next) => {
                 success: false,
                 message: "This is a protected route for Students"
             })
-            next()
         }
+        next()
 
     } catch (error) {
         return res.status(500).json({
@@ -55,8 +55,8 @@ exports.isInstructor = async (req, res, next) => {
                 success: false,
                 message: "This is a protected route for Instructor"
             })
-            next()
         }
+        next()
 
     } catch (error) {
         return res.status(500).json({
@@ -73,9 +73,8 @@ exports.isAdmin = async (req, res, next) => {
                 success: false,
                 message: "This is a protected route for Admin"
             })
-            next()
         }
-
+        next()
     } catch (error) {
         return res.status(500).json({
             success: false,

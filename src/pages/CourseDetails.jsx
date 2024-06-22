@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { BiInfoCircle } from "react-icons/bi"
 import { HiOutlineGlobeAlt } from "react-icons/hi"
-import { ReactMarkdown } from "react-markdown/lib/react-markdown"
+import Markdown from 'react-markdown'
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 import ConfirmationModal from "../components/common/ConfirmationModal"
@@ -28,7 +28,7 @@ function CourseDetails() {
     const [response, setResponse] = useState(null)
     const [confirmationModal, setConfirmationModal] = useState(null)
     useEffect(() => {
-        (async () => {
+        ;(async () => {
             try {
                 const res = await fetchCourseDetails(courseId)
                 setResponse(res)
@@ -179,9 +179,9 @@ function CourseDetails() {
                 <div className="mx-auto max-w-maxContentTab lg:mx-0 xl:max-w-[810px]">
                     {/* What will you learn section */}
                     <div className="my-8 border border-richblack-600 p-8">
-                        <p className="text-3xl font-semibold">What you'll learn</p>
+                        <p className="text-3xl font-semibold">Perks of this course</p>
                         <div className="mt-5">
-                            <ReactMarkdown>{whatYouWillLearn}</ReactMarkdown>
+                            <Markdown>{whatYouWillLearn}</Markdown>
                         </div>
                     </div>
 

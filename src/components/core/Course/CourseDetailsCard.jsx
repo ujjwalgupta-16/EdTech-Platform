@@ -47,7 +47,6 @@ function CourseDetailsCard({ course, setConfirmationModal, handleBuyCourse }) {
         <div>
             <div
                 className={`flex flex-col gap-4 rounded-md bg-richblack-700 p-4 text-richblack-5`}>
-                {/* Course Image */}
                 <img
                     src={ThumbnailImage}
                     alt={course?.courseName}
@@ -84,7 +83,7 @@ function CourseDetailsCard({ course, setConfirmationModal, handleBuyCourse }) {
 
                     <div className={``}>
                         <p className={`my-2 text-xl font-semibold `}>
-                            This Course Includes :
+                            Requirements:
                         </p>
                         <div className="flex flex-col gap-3 text-sm text-caribbeangreen-100">
                             {course?.instructions?.map((item, index) => {

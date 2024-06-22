@@ -16,10 +16,6 @@ const profileSchema = new mongoose.Schema({
     contactNumber: {
         type: Number,
         trim: true
-    },
-    profession: {
-        type: Number,
-        trim: true
     }
 })
 
