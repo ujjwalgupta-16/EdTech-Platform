@@ -37,6 +37,11 @@ function Navbar() {
         return matchPath({ path: route }, location.pathname)
     }
 
+    const closeMobileMenu = () => {
+        setMobileMenuOpen(false)
+        setCatalogOpen(false) // Close catalog dropdown when closing sidebar
+    }
+
     return (
         <div
             className={`flex h-14 items-center justify-center border-b-[1px] border-b-richblack-700 ${location.pathname !== "/" ? "bg-richblack-800" : ""
@@ -125,7 +130,7 @@ function Navbar() {
                         <Link to="/">
                             <img src={logo} alt="Logo" width={160} height={32} loading="lazy" />
                         </Link>
-                        <button onClick={() => setMobileMenuOpen(false)}>
+                        <button onClick={closeMobileMenu}>
                             <AiOutlineClose fontSize={24} fill="#AFB2BF" />
                         </button>
                     </div>
@@ -149,7 +154,7 @@ function Navbar() {
                                                                 to={`/catalog/${subLink.name.split(" ").join("-").toLowerCase()}`}
                                                                 className="block w-full rounded-lg bg-transparent py-2 pl-2 text-center hover:bg-richblack-50"
                                                                 key={i}
-                                                                onClick={() => setMobileMenuOpen(false)}>
+                                                                onClick={closeMobileMenu}>
                                                                 <p>{subLink.name}</p>
                                                             </Link>
                                                         ))}
@@ -161,7 +166,7 @@ function Navbar() {
                                         )}
                                     </div>
                                 ) : (
-                                    <Link to={link?.path} onClick={() => setMobileMenuOpen(false)}>
+                                    <Link to={link?.path} onClick={closeMobileMenu}>
                                         <p
                                             className={`${matchRoute(link?.path)
                                                 ? "text-yellow-25"
@@ -175,7 +180,7 @@ function Navbar() {
                         ))}
                         {user && user?.accountType !== "Instructor" && (
                             <li className="w-full text-center">
-                                <Link to="/dashboard/cart" className="relative" onClick={() => setMobileMenuOpen(false)}>
+                                <Link to="/dashboard/cart" className="relative" onClick={closeMobileMenu}>
                                     <AiOutlineShoppingCart className="text-2xl text-richblack-100" />
                                     {totalItems > 0 && (
                                         <span className="absolute -bottom-2 -right-2 grid h-5 w-5 place-items-center overflow-hidden rounded-full bg-richblack-600 text-center text-xs font-bold text-yellow-100">
@@ -187,7 +192,7 @@ function Navbar() {
                         )}
                         {token === null && (
                             <li className="w-full text-center">
-                                <Link to="/login" onClick={() => setMobileMenuOpen(false)}>
+                                <Link to="/login" onClick={closeMobileMenu}>
                                     <button className="rounded-[8px] border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] text-richblack-100">
                                         Log in
                                     </button>
@@ -196,7 +201,7 @@ function Navbar() {
                         )}
                         {token === null && (
                             <li className="w-full text-center">
-                                <Link to="/signup" onClick={() => setMobileMenuOpen(false)}>
+                                <Link to="/signup" onClick={closeMobileMenu}>
                                     <button className="rounded-[8px] border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] text-richblack-100">
                                         Sign up
                                     </button>
