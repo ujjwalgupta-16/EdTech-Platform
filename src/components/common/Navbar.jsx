@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { AiOutlineMenu, AiOutlineShoppingCart } from "react-icons/ai"
+import { AiOutlineMenu, AiOutlineShoppingCart, AiOutlineClose } from "react-icons/ai"
 import { BsChevronDown } from "react-icons/bs"
 import { useSelector } from "react-redux"
 import { Link, matchPath, useLocation } from "react-router-dom"
@@ -17,9 +17,11 @@ function Navbar() {
 
     const [subLinks, setSubLinks] = useState([])
     const [loading, setLoading] = useState(false)
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+    const [catalogOpen, setCatalogOpen] = useState(false)
 
     useEffect(() => {
-        ; (async () => {
+        (async () => {
             setLoading(true)
             try {
                 const res = await apiConnector("GET", categories.CATEGORIES_API)
@@ -30,7 +32,6 @@ function Navbar() {
             setLoading(false)
         })()
     }, [])
-
 
     const matchRoute = (route) => {
         return matchPath({ path: route }, location.pathname)
@@ -114,10 +115,102 @@ function Navbar() {
                     )}
                     {token !== null && <ProfileDropdown />}
                 </div>
-                <button className="mr-4 md:hidden">
+                <button className="mr-4 md:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
                     <AiOutlineMenu fontSize={24} fill="#AFB2BF" />
                 </button>
             </div>
+            {mobileMenuOpen && (
+                <div className="absolute top-0 left-0 z-[1000] h-screen w-full bg-richblack-800 text-richblack-100 md:hidden">
+                    <div className="flex justify-between items-center p-4 border-b border-richblack-700">
+                        <Link to="/">
+                            <img src={logo} alt="Logo" width={160} height={32} loading="lazy" />
+                        </Link>
+                        <button onClick={() => setMobileMenuOpen(false)}>
+                            <AiOutlineClose fontSize={24} fill="#AFB2BF" />
+                        </button>
+                    </div>
+                    <ul className="flex flex-col items-center gap-4 p-4 mt-4">
+                        {NavbarLinks.map((link, index) => (
+                            <li key={index} className="w-full text-center">
+                                {link.title === "Catalog" ? (
+                                    <div className={`relative flex cursor-pointer items-center justify-center gap-1 ${catalogOpen ? "text-yellow-25" : "text-richblack-25"}`}
+                                        onClick={() => setCatalogOpen(!catalogOpen)}>
+                                        <p>{link.title}</p>
+                                        <BsChevronDown />
+                                        {catalogOpen && (
+                                            <div className="absolute left-1/2 z-[1000] w-48 -translate-x-1/2 translate-y-4 flex-col rounded-lg bg-richblack-5 p-4 text-richblack-900 opacity-100 transition-all duration-150">
+                                                <div className="absolute left-1/2 top-0 -z-10 h-6 w-6 -translate-x-1/2 -translate-y-1/2 rotate-45 select-none rounded bg-richblack-5"></div>
+                                                {loading ? (
+                                                    <p className="text-center">Loading...</p>
+                                                ) : (subLinks && subLinks.length) ? (
+                                                    <>
+                                                        {subLinks?.map((subLink, i) => (
+                                                            <Link
+                                                                to={`/catalog/${subLink.name.split(" ").join("-").toLowerCase()}`}
+                                                                className="block w-full rounded-lg bg-transparent py-2 pl-2 text-center hover:bg-richblack-50"
+                                                                key={i}
+                                                                onClick={() => setMobileMenuOpen(false)}>
+                                                                <p>{subLink.name}</p>
+                                                            </Link>
+                                                        ))}
+                                                    </>
+                                                ) : (
+                                                    <p className="text-center">No Courses Found</p>
+                                                )}
+                                            </div>
+                                        )}
+                                    </div>
+                                ) : (
+                                    <Link to={link?.path} onClick={() => setMobileMenuOpen(false)}>
+                                        <p
+                                            className={`${matchRoute(link?.path)
+                                                ? "text-yellow-25"
+                                                : "text-richblack-25"
+                                                }`}>
+                                            {link.title}
+                                        </p>
+                                    </Link>
+                                )}
+                            </li>
+                        ))}
+                        {user && user?.accountType !== "Instructor" && (
+                            <li className="w-full text-center">
+                                <Link to="/dashboard/cart" className="relative" onClick={() => setMobileMenuOpen(false)}>
+                                    <AiOutlineShoppingCart className="text-2xl text-richblack-100" />
+                                    {totalItems > 0 && (
+                                        <span className="absolute -bottom-2 -right-2 grid h-5 w-5 place-items-center overflow-hidden rounded-full bg-richblack-600 text-center text-xs font-bold text-yellow-100">
+                                            {totalItems}
+                                        </span>
+                                    )}
+                                </Link>
+                            </li>
+                        )}
+                        {token === null && (
+                            <li className="w-full text-center">
+                                <Link to="/login" onClick={() => setMobileMenuOpen(false)}>
+                                    <button className="rounded-[8px] border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] text-richblack-100">
+                                        Log in
+                                    </button>
+                                </Link>
+                            </li>
+                        )}
+                        {token === null && (
+                            <li className="w-full text-center">
+                                <Link to="/signup" onClick={() => setMobileMenuOpen(false)}>
+                                    <button className="rounded-[8px] border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] text-richblack-100">
+                                        Sign up
+                                    </button>
+                                </Link>
+                            </li>
+                        )}
+                        {token !== null && (
+                            <li className="w-full text-center">
+                                <ProfileDropdown />
+                            </li>
+                        )}
+                    </ul>
+                </div>
+            )}
         </div>
     )
 }
